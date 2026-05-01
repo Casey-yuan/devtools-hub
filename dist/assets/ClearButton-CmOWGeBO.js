@@ -1,2 +1,0 @@
-import{j as t,b as o}from"./index-CgU9bVkb.js";import{a as s}from"./ui-4aLoVveB.js";function u({onClick:e,className:r,visible:n}){return n?t.jsx("button",{onClick:e,className:o("absolute right-2 top-2 inline-flex h-6 w-6 items-center justify-center rounded-md text-muted-foreground transition-all hover:bg-accent hover:text-foreground",r),title:"清空",children:t.jsx(s,{className:"h-3.5 w-3.5"})}):null}export{u as C};
-//# sourceMappingURL=ClearButton-CmOWGeBO.js.map
