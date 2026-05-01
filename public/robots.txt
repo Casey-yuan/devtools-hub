@@ -7,4 +7,4 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
-Sitemap: https://Casey-yuan.github.io/tool-web/sitemap.xml
+Sitemap: https://casey-yuan.github.io/devtools-hub/sitemap.xml
