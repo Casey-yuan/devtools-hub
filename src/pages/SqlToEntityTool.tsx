@@ -26,29 +26,61 @@ const languageOptions: { value: Language; label: string }[] = [
 
 // 解析 SQL 建表语句
 const parseSQLTable = (sql: string): { tableName: string; columns: ColumnInfo[] } | null => {
-  const tableMatch = sql.match(/CREATE\s+TABLE\s+(?:`?|"?|\[?)(\w+)(?:`?|"?|\]?)/i)
+  // 清理 SQL：移除注释、标准化空白
+  const cleanSql = sql
+    .replace(/\/\*[\s\S]*?\*\//g, '') // 移除 /* */ 注释
+    .replace(/--.*$/gm, '') // 移除 -- 注释
+    .replace(/#.*$/gm, '') // 移除 # 注释
+    .replace(/\s+/g, ' ') // 标准化空白
+    .trim()
+
+  const tableMatch = cleanSql.match(/CREATE\s+TABLE\s+(?:`?|"?|\[?)(\w+)(?:`?|"?|\]?)/i)
   if (!tableMatch) return null
 
   const tableName = tableMatch[1]
   const columns: ColumnInfo[] = []
 
-  // 提取列定义部分
-  const columnsMatch = sql.match(/\(([^)]+)\)/s)
-  if (!columnsMatch) return null
+  // 提取列定义部分（处理嵌套括号）
+  const bodyMatch = cleanSql.match(/CREATE\s+TABLE\s+[^\(]+\((.*)\)\s*$/is)
+  if (!bodyMatch) return null
 
-  const columnDefs = columnsMatch[1].split(',').map(s => s.trim())
+  const body = bodyMatch[1]
+  
+  // 智能分割列定义（处理括号内的逗号）
+  const columnDefs: string[] = []
+  let depth = 0
+  let current = ''
+  
+  for (let i = 0; i < body.length; i++) {
+    const char = body[i]
+    if (char === '(') depth++
+    else if (char === ')') depth--
+    else if (char === ',' && depth === 0) {
+      if (current.trim()) {
+        columnDefs.push(current.trim())
+      }
+      current = ''
+      continue
+    }
+    current += char
+  }
+  if (current.trim()) {
+    columnDefs.push(current.trim())
+  }
 
   for (const def of columnDefs) {
     // 跳过约束定义
-    if (/^(PRIMARY\s+KEY|FOREIGN\s+KEY|CONSTRAINT|INDEX|UNIQUE)/i.test(def)) continue
+    if (/^(PRIMARY\s+KEY|FOREIGN\s+KEY|CONSTRAINT|INDEX|UNIQUE|CHECK|FULLTEXT|SPATIAL)/i.test(def)) continue
 
-    const colMatch = def.match(/(?:`?|"?)(\w+)(?:`?|"?)\s+(\w+(?:\([^)]+\))?)/i)
+    // 匹配列名和类型（支持各种引号）
+    const colMatch = def.match(/^(?:`?|"?|'?)\s*(\w+)\s*(?:`?|"?|'?)\s+(\w+(?:\s*\([^)]+\))?)/i)
     if (!colMatch) continue
 
     const name = colMatch[1]
-    const type = colMatch[2].toUpperCase()
+    const type = colMatch[2].toUpperCase().trim()
     const nullable = !def.match(/NOT\s+NULL/i)
     const isPrimaryKey = def.match(/PRIMARY\s+KEY/i) !== null
+    const autoIncrement = def.match(/AUTO_INCREMENT|AUTOINCREMENT|IDENTITY/i) !== null
     const defaultMatch = def.match(/DEFAULT\s+([^\s,]+)/i)
     const commentMatch = def.match(/COMMENT\s+['"]([^'"]+)['"]/i)
 

@@ -3,7 +3,7 @@ import ToolLayout from '@/components/layout/ToolLayout'
 import CopyButton from '@/components/layout/CopyButton'
 import ClearButton from '@/components/layout/ClearButton'
 import { useToastStore } from '@/stores/toastStore'
-import { Globe, Send, Plus, Trash2, Clock, FileJson } from 'lucide-react'
+import { Globe, Send, Plus, Trash2, Clock, FileJson, ChevronDown } from 'lucide-react'
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS'
 
@@ -165,6 +165,77 @@ const HttpRequestTool = memo(() => {
     }
   }
 
+  // 解析 cURL 命令
+  const parseCurl = useCallback((curlCommand: string) => {
+    try {
+      const cleanCurl = curlCommand.trim()
+      
+      // 提取 URL
+      const urlMatch = cleanCurl.match(/curl\s+(?:-X\s+\w+\s+)?['"]?([^\s'"]+)['"]?/i)
+      if (!urlMatch) {
+        addToast('无法解析 cURL 命令', 'error')
+        return
+      }
+      
+      let parsedUrl = urlMatch[1]
+      let parsedMethod: HttpMethod = 'GET'
+      const parsedHeaders: Header[] = []
+      let parsedBody = ''
+      
+      // 提取方法
+      const methodMatch = cleanCurl.match(/-X\s+(\w+)/i)
+      if (methodMatch) {
+        const m = methodMatch[1].toUpperCase()
+        if (methods.includes(m as HttpMethod)) {
+          parsedMethod = m as HttpMethod
+        }
+      } else if (cleanCurl.includes(' -d ') || cleanCurl.includes(' --data ')) {
+        parsedMethod = 'POST'
+      }
+      
+      // 提取 Headers
+      const headerRegex = /-H\s+['"]([^'"]+)['"]/g
+      let headerMatch
+      while ((headerMatch = headerRegex.exec(cleanCurl)) !== null) {
+        const headerStr = headerMatch[1]
+        const colonIndex = headerStr.indexOf(':')
+        if (colonIndex > 0) {
+          parsedHeaders.push({
+            key: headerStr.substring(0, colonIndex).trim(),
+            value: headerStr.substring(colonIndex + 1).trim(),
+            enabled: true,
+          })
+        }
+      }
+      
+      // 提取 Body
+      const bodyMatch = cleanCurl.match(/-d\s+['"]([\s\S]*?)['"](?:\s+-H|\s+-X|$)/) || 
+                        cleanCurl.match(/--data\s+['"]([\s\S]*?)['"](?:\s+-H|\s+-X|$)/) ||
+                        cleanCurl.match(/-d\s+(\{[\s\S]*?\})(?:\s+-H|\s+-X|$)/) ||
+                        cleanCurl.match(/--data\s+(\{[\s\S]*?\})(?:\s+-H|\s+-X|$)/)
+      if (bodyMatch) {
+        parsedBody = bodyMatch[1].trim()
+      }
+      
+      // 应用解析结果
+      setUrl(parsedUrl)
+      setMethod(parsedMethod)
+      if (parsedHeaders.length > 0) {
+        setHeaders(parsedHeaders)
+      }
+      if (parsedBody) {
+        setBody(parsedBody)
+      }
+      
+      addToast('cURL 导入成功', 'success')
+    } catch (error) {
+      addToast('cURL 解析失败', 'error')
+    }
+  }, [addToast])
+
+  const [showCurlInput, setShowCurlInput] = useState(false)
+  const [curlCommand, setCurlCommand] = useState('')
+
   return (
     <ToolLayout
       title="HTTP 请求测试"
@@ -208,19 +279,56 @@ const HttpRequestTool = memo(() => {
               </button>
             </div>
 
-            {/* 示例请求 */}
-            <div className="flex items-center gap-2 text-sm">
-              <span className="text-slate-500">示例:</span>
-              {sampleRequests.map((sample) => (
-                <button
-                  key={sample.name}
-                  onClick={() => loadSample(sample)}
-                  className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 underline"
-                >
-                  {sample.name}
-                </button>
-              ))}
+            {/* 示例请求和 cURL 导入 */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-sm">
+                <span className="text-slate-500">示例:</span>
+                {sampleRequests.map((sample) => (
+                  <button
+                    key={sample.name}
+                    onClick={() => loadSample(sample)}
+                    className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 underline"
+                  >
+                    {sample.name}
+                  </button>
+                ))}
+              </div>
+              <button
+                onClick={() => setShowCurlInput(!showCurlInput)}
+                className="text-sm text-slate-600 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 flex items-center gap-1"
+              >
+                <span>导入 cURL</span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${showCurlInput ? 'rotate-180' : ''}`} />
+              </button>
             </div>
+
+            {/* cURL 输入框 */}
+            {showCurlInput && (
+              <div className="mt-3 p-3 bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-200 dark:border-slate-700">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">粘贴 cURL 命令</span>
+                  <button
+                    onClick={() => {
+                      if (curlCommand.trim()) {
+                        parseCurl(curlCommand)
+                        setShowCurlInput(false)
+                        setCurlCommand('')
+                      }
+                    }}
+                    disabled={!curlCommand.trim()}
+                    className="text-xs px-3 py-1 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white rounded transition-colors"
+                  >
+                    导入
+                  </button>
+                </div>
+                <textarea
+                  value={curlCommand}
+                  onChange={(e) => setCurlCommand(e.target.value)}
+                  placeholder={`curl -X POST https://api.example.com/data \\\n  -H "Content-Type: application/json" \\\n  -d '{"key":"value"}'`}
+                  className="w-full h-24 px-3 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                />
+              </div>
+            )}
           </div>
         </div>
 
