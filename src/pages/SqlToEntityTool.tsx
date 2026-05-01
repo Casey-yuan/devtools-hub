@@ -41,7 +41,7 @@ const parseSQLTable = (sql: string): { tableName: string; columns: ColumnInfo[] 
   const columns: ColumnInfo[] = []
 
   // 提取列定义部分（处理嵌套括号）
-  const bodyMatch = cleanSql.match(/CREATE\s+TABLE\s+[^\(]+\((.*)\)\s*$/is)
+  const bodyMatch = cleanSql.match(/CREATE\s+TABLE\s+[^\(]+\((.*)\)\s*;?\s*$/is)
   if (!bodyMatch) return null
 
   const body = bodyMatch[1]
