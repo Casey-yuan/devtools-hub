@@ -13,7 +13,15 @@
 </p>
 
 <p align="center">
-  <b>A collection of simple, efficient, and secure online developer tools</b>
+  <b>A collection of 20+ practical developer tools to boost your productivity</b><br>
+  JSON formatting, encoding/decoding, hash calculation, regex testing, and more
+</p>
+
+<p align="center">
+  ✨ One-stop toolkit for daily development needs<br>
+  🎨 Clean UI, ready to use out of the box<br>
+  🔒 Pure frontend, privacy-safe, works offline<br>
+  🚀 Continuously updated, community-driven
 </p>
 
 <p align="center">
