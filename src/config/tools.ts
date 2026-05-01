@@ -25,6 +25,8 @@ import {
   Database,
   Network,
   Link,
+  Server,
+  Table,
 } from 'lucide-react'
 
 export type ToolCategory = 'format' | 'dev' | 'generator' | 'convert'
@@ -346,6 +348,47 @@ export const tools: Tool[] = [
     bgColor: 'bg-amber-600/10',
     borderColor: 'hover:border-amber-600/30',
     keywords: ['xml', '格式化', '校验', 'parse', '节点'],
+  },
+
+  // 后端开发工具
+  {
+    id: 'sqltoentity',
+    path: '/sqltoentity',
+    name: 'SQL转实体类',
+    label: 'SQL转实体类',
+    description: '将SQL建表语句转换为Java/C#/Go等实体类',
+    icon: Table,
+    category: 'dev',
+    color: 'text-indigo-600',
+    bgColor: 'bg-indigo-600/10',
+    borderColor: 'hover:border-indigo-600/30',
+    keywords: ['sql', 'entity', '实体类', 'java', 'csharp', 'go', 'orm', 'jpa'],
+  },
+  {
+    id: 'httprequest',
+    path: '/httprequest',
+    name: 'HTTP请求测试',
+    label: 'HTTP请求',
+    description: '在线发送HTTP请求，测试API接口',
+    icon: Globe,
+    category: 'dev',
+    color: 'text-green-600',
+    bgColor: 'bg-green-600/10',
+    borderColor: 'hover:border-green-600/30',
+    keywords: ['http', 'api', '请求', 'postman', 'rest', '测试', '接口'],
+  },
+  {
+    id: 'jsontostruct',
+    path: '/jsontostruct',
+    name: 'JSON转结构体',
+    label: 'JSON转结构体',
+    description: '将JSON数据转换为Go/Java/TS结构体定义',
+    icon: Server,
+    category: 'dev',
+    color: 'text-rose-600',
+    bgColor: 'bg-rose-600/10',
+    borderColor: 'hover:border-rose-600/30',
+    keywords: ['json', 'struct', '结构体', 'go', 'java', 'typescript', 'model'],
   },
 
   // 生成器工具

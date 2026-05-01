@@ -32,6 +32,10 @@ const CalculatorTool = lazy(() => import('@/pages/CalculatorTool'))
 const IpQueryTool = lazy(() => import('@/pages/IpQueryTool'))
 const SqlFormatTool = lazy(() => import('@/pages/SqlFormatTool'))
 const XmlFormatTool = lazy(() => import('@/pages/XmlFormatTool'))
+// 后端开发工具
+const SqlToEntityTool = lazy(() => import('@/pages/SqlToEntityTool'))
+const HttpRequestTool = lazy(() => import('@/pages/HttpRequestTool'))
+const JsonToStructTool = lazy(() => import('@/pages/JsonToStructTool'))
 
 
 // 加载占位组件
@@ -100,6 +104,10 @@ export default function App() {
               <Route path="/ipquery" element={<IpQueryTool />} />
               <Route path="/sqlformat" element={<SqlFormatTool />} />
               <Route path="/xmlformat" element={<XmlFormatTool />} />
+              {/* 后端开发工具路由 */}
+              <Route path="/sqltoentity" element={<SqlToEntityTool />} />
+              <Route path="/httprequest" element={<HttpRequestTool />} />
+              <Route path="/jsontostruct" element={<JsonToStructTool />} />
 
             </Routes>
           </Suspense>

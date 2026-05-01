@@ -73,6 +73,13 @@
 | 🧪 Regex Tester | Online regex testing and matching |
 | 🆔 UUID Generator | Generate unique identifiers |
 | ⏱️ Cron Expression | Cron expression parsing and generation |
+| 🌐 HTTP Request Tester | Send HTTP requests online, test API endpoints |
+
+### Backend Tools
+| Tool | Description |
+|------|-------------|
+| 🗄️ SQL to Entity | Convert SQL CREATE TABLE to Java/C#/Go entity classes |
+| 📋 JSON to Struct | Convert JSON to Go/Java/TS struct definitions |
 
 ### Text Tools
 | Tool | Description |
