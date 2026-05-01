@@ -335,23 +335,23 @@ const SqlToEntityTool = memo(() => {
   const [output, setOutput] = useState('')
   const [language, setLanguage] = useState<Language>('java')
   const [showSettings, setShowSettings] = useState(false)
-  const { showToast } = useToastStore()
+  const { addToast } = useToastStore()
 
   const handleConvert = useCallback(() => {
     if (!input.trim()) {
-      showToast('请输入 SQL 建表语句', 'warning')
+      addToast('请输入 SQL 建表语句', 'warning')
       return
     }
     const result = generateEntity(input, language)
     setOutput(result)
-    showToast('转换成功', 'success')
-  }, [input, language, showToast])
+    addToast('转换成功', 'success')
+  }, [input, language, addToast])
 
   const handleClear = useCallback(() => {
     setInput('')
     setOutput('')
-    showToast('已清空', 'success')
-  }, [showToast])
+    addToast('已清空', 'success')
+  }, [addToast])
 
   const sampleSQL = `CREATE TABLE users (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -368,7 +368,6 @@ const SqlToEntityTool = memo(() => {
     <ToolLayout
       title="SQL 转实体类"
       description="将 SQL 建表语句转换为各种编程语言的实体类代码"
-      icon={Database}
     >
       <div className="space-y-4">
         {/* 设置栏 */}

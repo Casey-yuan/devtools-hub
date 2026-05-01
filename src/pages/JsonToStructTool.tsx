@@ -390,34 +390,34 @@ const JsonToStructTool = memo(() => {
     addJsonTags: true,
     addValidation: false,
   })
-  const { showToast } = useToastStore()
+  const { addToast } = useToastStore()
 
   const handleConvert = useCallback(() => {
     if (!input.trim()) {
-      showToast('请输入 JSON', 'warning')
+      addToast('请输入 JSON', 'warning')
       return
     }
 
     const result = convertJsonToStruct(input, language, structName, options)
     setOutput(result)
-    showToast('转换成功', 'success')
-  }, [input, language, structName, options, showToast])
+    addToast('转换成功', 'success')
+  }, [input, language, structName, options, addToast])
 
   const handleClear = useCallback(() => {
     setInput('')
     setOutput('')
-    showToast('已清空', 'success')
-  }, [showToast])
+    addToast('已清空', 'success')
+  }, [addToast])
 
   const formatJson = useCallback(() => {
     try {
       const parsed = JSON.parse(input)
       setInput(JSON.stringify(parsed, null, 2))
-      showToast('JSON 格式化成功', 'success')
+      addToast('JSON 格式化成功', 'success')
     } catch {
-      showToast('无效的 JSON 格式', 'error')
+      addToast('无效的 JSON 格式', 'error')
     }
-  }, [input, showToast])
+  }, [input, addToast])
 
   const sampleJSON = `{
   "id": 123,
@@ -437,7 +437,6 @@ const JsonToStructTool = memo(() => {
     <ToolLayout
       title="JSON 转结构体"
       description="将 JSON 数据转换为各种编程语言的结构体/类定义"
-      icon={FileJson}
     >
       <div className="space-y-4">
         {/* 配置栏 */}

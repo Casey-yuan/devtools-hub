@@ -3,7 +3,7 @@ import ToolLayout from '@/components/layout/ToolLayout'
 import CopyButton from '@/components/layout/CopyButton'
 import ClearButton from '@/components/layout/ClearButton'
 import { useToastStore } from '@/stores/toastStore'
-import { Globe, Send, Plus, Trash2, Clock, Code, FileJson, Eye, EyeOff } from 'lucide-react'
+import { Globe, Send, Plus, Trash2, Clock, FileJson } from 'lucide-react'
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS'
 
@@ -44,8 +44,7 @@ const HttpRequestTool = memo(() => {
   const [response, setResponse] = useState<ResponseData | null>(null)
   const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState<'headers' | 'body'>('body')
-  const [showPassword, setShowPassword] = useState(false)
-  const { showToast } = useToastStore()
+  const { addToast } = useToastStore()
 
   const addHeader = useCallback(() => {
     setHeaders([...headers, { key: '', value: '', enabled: true }])
@@ -65,15 +64,15 @@ const HttpRequestTool = memo(() => {
     try {
       const parsed = JSON.parse(body)
       setBody(JSON.stringify(parsed, null, 2))
-      showToast('JSON 格式化成功', 'success')
+      addToast('JSON 格式化成功', 'success')
     } catch {
-      showToast('无效的 JSON 格式', 'error')
+      addToast('无效的 JSON 格式', 'error')
     }
-  }, [body, showToast])
+  }, [body, addToast])
 
   const sendRequest = useCallback(async () => {
     if (!url.trim()) {
-      showToast('请输入请求地址', 'warning')
+      addToast('请输入请求地址', 'warning')
       return
     }
 
@@ -125,7 +124,7 @@ const HttpRequestTool = memo(() => {
         size: new Blob([responseBody]).size,
       })
 
-      showToast('请求成功', 'success')
+      addToast('请求成功', 'success')
     } catch (error) {
       setResponse({
         status: 0,
@@ -135,11 +134,11 @@ const HttpRequestTool = memo(() => {
         time: 0,
         size: 0,
       })
-      showToast('请求失败', 'error')
+      addToast('请求失败', 'error')
     } finally {
       setLoading(false)
     }
-  }, [method, url, headers, body, showToast])
+  }, [method, url, headers, body, addToast])
 
   const getStatusColor = (status: number) => {
     if (status >= 200 && status < 300) return 'text-green-600 dark:text-green-400'
@@ -170,7 +169,6 @@ const HttpRequestTool = memo(() => {
     <ToolLayout
       title="HTTP 请求测试"
       description="在线发送 HTTP 请求，测试 API 接口"
-      icon={Globe}
     >
       <div className="space-y-4">
         {/* 请求配置 */}
