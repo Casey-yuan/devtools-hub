@@ -379,7 +379,7 @@ const convertJsonToStruct = (
 const JsonToStructTool = memo(() => {
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
-  const [language, setLanguage] = useState<Language>('go')
+  const [language, setLanguage] = useState<Language>('java')
   const [structName, setStructName] = useState('User')
   const [showOptions, setShowOptions] = useState(false)
   const [options, setOptions] = useState<ConvertOptions>({
