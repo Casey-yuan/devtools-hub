@@ -37,7 +37,7 @@ export default function Header() {
         <div className="flex flex-1 items-center justify-end gap-2">
           {/* GitHub */}
           <a
-            href="https://github.com"
+            href="https://github.com/Casey-yuan/devtools-hub"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 hover:bg-slate-100 h-9 w-9 text-slate-600"
