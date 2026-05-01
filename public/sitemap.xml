@@ -28,13 +28,13 @@
     <loc>https://casey-yuan.github.io/devtools-hub/#/timestamp</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://casey-yuan.github.io/devtools-hub/#/regex</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://casey-yuan.github.io/devtools-hub/#/color</loc>
@@ -46,16 +46,88 @@
     <loc>https://casey-yuan.github.io/devtools-hub/#/diff</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://casey-yuan.github.io/devtools-hub/#/ip</loc>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/password</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://casey-yuan.github.io/devtools-hub/#/password</loc>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/cron</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/uuid</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/baseconvert</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/htmlpreview</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/markdown</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/unitconvert</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/texttools</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/urlparse</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/imagebase64</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/calculator</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/ipquery</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/sqlformat</loc>
+    <lastmod>2024-01-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://casey-yuan.github.io/devtools-hub/#/xmlformat</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
