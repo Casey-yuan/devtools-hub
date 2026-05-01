@@ -226,7 +226,7 @@ const generateGoStruct = (
 const generateJavaClass = (
   obj: Record<string, unknown>,
   className: string,
-  options: ConvertOptions
+  _options: ConvertOptions
 ): string => {
   let code = `public class ${className} {\n\n`
 
@@ -264,7 +264,7 @@ const generateJavaClass = (
 const generateCSharpClass = (
   obj: Record<string, unknown>,
   className: string,
-  options: ConvertOptions
+  _options: ConvertOptions
 ): string => {
   let code = `public class ${className}\n{\n`
 
@@ -282,7 +282,7 @@ const generateCSharpClass = (
 const generateTypeScriptInterface = (
   obj: Record<string, unknown>,
   interfaceName: string,
-  options: ConvertOptions
+  _options: ConvertOptions
 ): string => {
   let code = `interface ${interfaceName} {\n`
 
@@ -300,7 +300,7 @@ const generateTypeScriptInterface = (
 const generatePythonClass = (
   obj: Record<string, unknown>,
   className: string,
-  options: ConvertOptions
+  _options: ConvertOptions
 ): string => {
   let code = `from dataclasses import dataclass\n\n`
   code += `@dataclass\n`
@@ -331,8 +331,7 @@ const generateRustStruct = (
 
     let attrs = ''
     if (options.addJsonTags) {
-      const rename = key !== fieldName ? `, rename = "${key}"` : ''
-      attrs += `    #[serde(rename = "${key}")]\n`
+      attrs += `    #[serde(rename = "${key}")]`
     }
 
     code += `${attrs}    pub ${fieldName}: ${fieldType},\n`
@@ -547,7 +546,7 @@ const JsonToStructTool = memo(() => {
                 >
                   格式化
                 </button>
-                <ClearButton onClick={handleClear} />
+                <ClearButton onClick={handleClear} visible={input.length > 0} />
               </div>
             </div>
             <textarea

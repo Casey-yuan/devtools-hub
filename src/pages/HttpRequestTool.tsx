@@ -307,7 +307,7 @@ const HttpRequestTool = memo(() => {
                       <FileJson className="w-3 h-3" />
                       格式化
                     </button>
-                    <ClearButton onClick={() => setBody('')} />
+                    <ClearButton onClick={() => setBody('')} visible={body.length > 0} />
                   </div>
                 </div>
                 <textarea

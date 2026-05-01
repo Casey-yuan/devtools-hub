@@ -3,7 +3,7 @@ import ToolLayout from '@/components/layout/ToolLayout'
 import CopyButton from '@/components/layout/CopyButton'
 import ClearButton from '@/components/layout/ClearButton'
 import { useToastStore } from '@/stores/toastStore'
-import { Database, Code, Settings, ChevronDown } from 'lucide-react'
+import { Database, Code, ChevronDown } from 'lucide-react'
 
 type Language = 'java' | 'csharp' | 'python' | 'go' | 'typescript'
 
@@ -97,21 +97,6 @@ const sqlToCSharpType = (sqlType: string): string => {
   if (type.includes('BLOB') || type.includes('BINARY')) return 'byte[]'
   if (type.includes('GUID') || type.includes('UUID')) return 'Guid'
   return 'object'
-}
-
-// 转换 SQL 类型到 Python 类型
-const sqlToPythonType = (sqlType: string): string => {
-  const type = sqlType.toUpperCase()
-  if (type.includes('INT') || type.includes('SERIAL')) return 'int'
-  if (type.includes('VARCHAR') || type.includes('TEXT') || type.includes('CHAR')) return 'str'
-  if (type.includes('DECIMAL') || type.includes('NUMERIC') || type.includes('MONEY')) return 'Decimal'
-  if (type.includes('FLOAT') || type.includes('REAL')) return 'float'
-  if (type.includes('DOUBLE')) return 'float'
-  if (type.includes('BOOLEAN') || type.includes('BIT')) return 'bool'
-  if (type.includes('DATE') || type.includes('TIME') || type.includes('DATETIME') || type.includes('TIMESTAMP')) return 'datetime'
-  if (type.includes('BLOB') || type.includes('BINARY')) return 'bytes'
-  if (type.includes('JSON')) return 'dict'
-  return 'Any'
 }
 
 // 转换 SQL 类型到 Go 类型
@@ -231,7 +216,6 @@ const generatePythonEntity = (tableName: string, columns: ColumnInfo[]): string 
   code += `    __tablename__ = '${tableName}'\n\n`
 
   columns.forEach(col => {
-    const pyType = sqlToPythonType(col.type)
     let sqlAlchemyType = 'String'
     
     if (col.type.toUpperCase().includes('INT')) sqlAlchemyType = 'Integer'
@@ -334,7 +318,6 @@ const SqlToEntityTool = memo(() => {
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
   const [language, setLanguage] = useState<Language>('java')
-  const [showSettings, setShowSettings] = useState(false)
   const { addToast } = useToastStore()
 
   const handleConvert = useCallback(() => {
@@ -410,7 +393,7 @@ const SqlToEntityTool = memo(() => {
                   SQL 建表语句
                 </span>
               </div>
-              <ClearButton onClick={handleClear} />
+              <ClearButton onClick={handleClear} visible={input.length > 0} />
             </div>
             <textarea
               value={input}
