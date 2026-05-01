@@ -31,17 +31,6 @@
 
 ---
 
-## ✨ Features
-
-- 🚀 **Pure Frontend** - All data processing is done locally in the browser, no server upload required
-- 🔒 **Privacy Safe** - Sensitive data never leaves your device
-- 📱 **Responsive Design** - Perfectly adapted for desktop, tablet, and mobile
-- 🎨 **Beautiful UI** - Modern UI design with dark mode support
-- ⚡ **Lightning Fast** - Built with Vite for lightning-fast first load
-- 🛠️ **Rich Tools** - Covers various practical tools for development, encoding, and formatting
-
----
-
 ## 🎯 Features Overview
 
 ### Formatting Tools
