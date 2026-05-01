@@ -80,7 +80,6 @@ const parseSQLTable = (sql: string): { tableName: string; columns: ColumnInfo[] 
     const type = colMatch[2].toUpperCase().trim()
     const nullable = !def.match(/NOT\s+NULL/i)
     const isPrimaryKey = def.match(/PRIMARY\s+KEY/i) !== null
-    const autoIncrement = def.match(/AUTO_INCREMENT|AUTOINCREMENT|IDENTITY/i) !== null
     const defaultMatch = def.match(/DEFAULT\s+([^\s,]+)/i)
     const commentMatch = def.match(/COMMENT\s+['"]([^'"]+)['"]/i)
 
