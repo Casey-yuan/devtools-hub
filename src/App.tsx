@@ -36,6 +36,8 @@ const XmlFormatTool = lazy(() => import('@/pages/XmlFormatTool'))
 const SqlToEntityTool = lazy(() => import('@/pages/SqlToEntityTool'))
 const HttpRequestTool = lazy(() => import('@/pages/HttpRequestTool'))
 const JsonToStructTool = lazy(() => import('@/pages/JsonToStructTool'))
+// 文件转换工具
+const FileConvertTool = lazy(() => import('@/pages/FileConvertTool'))
 
 
 // 加载占位组件
@@ -108,6 +110,8 @@ export default function App() {
               <Route path="/sqltoentity" element={<SqlToEntityTool />} />
               <Route path="/httprequest" element={<HttpRequestTool />} />
               <Route path="/jsontostruct" element={<JsonToStructTool />} />
+              {/* 文件转换工具路由 */}
+              <Route path="/fileconvert" element={<FileConvertTool />} />
 
             </Routes>
           </Suspense>

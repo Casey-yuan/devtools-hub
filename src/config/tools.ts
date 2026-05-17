@@ -27,6 +27,7 @@ import {
   Link,
   Server,
   Table,
+  FileUp,
 } from 'lucide-react'
 
 export type ToolCategory = 'format' | 'dev' | 'generator' | 'convert'
@@ -389,6 +390,21 @@ export const tools: Tool[] = [
     bgColor: 'bg-rose-600/10',
     borderColor: 'hover:border-rose-600/30',
     keywords: ['json', 'struct', '结构体', 'go', 'java', 'typescript', 'model'],
+  },
+
+  // 文件转换工具
+  {
+    id: 'fileconvert',
+    path: '/fileconvert',
+    name: '文件转换',
+    label: '文件转换',
+    description: '支持多种文件格式互转，高级格式需升级',
+    icon: FileUp,
+    category: 'convert',
+    color: 'text-purple-600',
+    bgColor: 'bg-purple-600/10',
+    borderColor: 'hover:border-purple-600/30',
+    keywords: ['file', 'convert', '文件', '转换', 'format', 'pdf', 'word', 'excel'],
   },
 
   // 生成器工具
